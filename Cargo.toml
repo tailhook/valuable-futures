@@ -1,0 +1,19 @@
+[package]
+name = "valuable_futures"
+description = """
+    Utils which allow writing futures::Future and futures::Stream by-value
+"""
+license = "MIT/Apache-2.0"
+readme = "README.rst"
+keywords = ["future", "by-value", "value"]
+homepage = "http://github.com/tailhook/valuable-futures"
+documentation = "http://docs.rs/valuable-futures"
+version = "0.1.0"
+authors = ["paul@colomiets.name"]
+
+[dependencies]
+futures = "0.1.14"
+
+[dev-dependencies]
+tokio-core = "0.1.9"
+tk-easyloop = "0.1.1"
