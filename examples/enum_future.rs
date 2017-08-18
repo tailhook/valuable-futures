@@ -7,7 +7,6 @@ use std::time::Duration;
 
 use futures::{Future as OriginalFuture};
 use valuable_futures::{Future, Async};
-use futures::IntoFuture;
 use tokio_core::reactor::Timeout;
 use tk_easyloop::{run, timeout};
 
@@ -23,13 +22,13 @@ impl Future for WaitAndPrint {
     fn poll(self) -> Result<Async<Self::Item, Self>, Self::Error> {
         use self::WaitAndPrint::*;
         let mut state = self;
-        Ok(loop {
+        loop {
             state = match state {
                 Wait(n, mut t) => {
                     if t.poll().unwrap().is_ready() {
                         Print(n)
                     } else {
-                        break Async::NotReady(Wait(n, t))
+                        return Ok(Async::NotReady(Wait(n, t)));
                     }
                 }
                 Print(n) => {
@@ -37,11 +36,11 @@ impl Future for WaitAndPrint {
                     if n > 0 {
                         Wait(n-1, timeout(Duration::new(1, 0)))
                     } else {
-                        break Async::Ready(());
+                        return Ok(Async::Ready(()));
                     }
                 }
             }
-        })
+        }
     }
 }
 
