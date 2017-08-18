@@ -1,0 +1,15 @@
+language: rust
+rust:
+- stable
+- beta
+- nightly
+sudo: false
+
+env:
+- secure: "o8jWSvwHi94684A4jQ6WSRkj0jyrI/pCv7G9nvvJEreX9z9RYa9sQWqWp5f9mAWnwjxk/joCea2EaxVfJOE4S0NgpCKnhVA4cv/yEpsFTaH9w87LMhFa+QPDkIgpz3dfEjNuEPN1PtqJTugoDk+lUN43OvT6QhqunK4bfSV7o0BXc0wYonqhKRLSasbCT9fZuqg1kyGaTMU/FG34iH8DMeQljSqkicEwIuce6XM21Stc2zfIivL9+yMeQdBJjE5DjGRTegCM9sLmnJgZEK7YJIOkBUHd0jEuhq8qqdf7jT+KelAzRBRxwBvN7EF4HS73YJ8Pp/GsMdPy3oORF5T+DrCXD//G+0eQ3I6pTl/rQ5L+f12C2I+ZX7ckUlT2H2bL07KsgmIo5PxScRHSMh4dryMxn0SK9nulDuBU40nkHQU0j4bBBaQBqBflMlv7L+PGhj3cenioIBQON3sPBsOuVyNE7z4LvsTiAUrJSBmPJvqkSS2ArYr4i9P0yr8viv184KqSE3d2YAQ/8IzMfXA0IorXIiuP6p29TQRwroj+kYPs8YNdSxKrA5nl8i/XYbssyNVBPcW/xUqGOFwwPp+o6c4Jnsj/GraSwHq5FVtC98JVbiXQObuUiP4KBXURC+eD/CwGlhX5LnTuH5vm29Kg2KE2m7GGRA7Gb2UW6PTKePw="
+deploy:
+  provider: script
+  script: "cargo publish --token=$CARGO_TOKEN --verbose"
+  on:
+    rust: stable
+    tags: true
