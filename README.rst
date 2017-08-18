@@ -8,6 +8,7 @@ Valuable-futures crate
 A library that allows writing futures_ having a by-value state
 (or type-safe futures
 inspired by `#458 <https://github.com/alexcrichton/futures-rs/issues/458>`).
+This is very useful for implemention futures as state machines or enums.
 
 
 .. _futures: https://docs.rs/futures/
