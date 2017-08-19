@@ -7,7 +7,9 @@ license = "MIT/Apache-2.0"
 readme = "README.rst"
 keywords = ["future", "by-value", "value"]
 homepage = "http://github.com/tailhook/valuable-futures"
-documentation = "http://docs.rs/valuable-futures"
+repository = "http://github.com/tailhook/valuable-futures"
+documentation = "http://docs.rs/valuable_futures"
+categories = ["asynchronous", "network-programming", "rust-patterns"]
 version = "0.1.0"
 authors = ["paul@colomiets.name"]
 
