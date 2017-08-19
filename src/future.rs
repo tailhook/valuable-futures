@@ -24,9 +24,11 @@ pub trait Future: Sized {
     ///
     /// See [documentation of futures](https://docs.rs/futures/0.1.14/futures/future/trait.Future.html#tymethod.poll)
     /// for more more information on how the method should be implemented.
+    #[inline(always)]
     fn poll(self) -> Result<Async<Self::Item, Self>, Self::Error>;
 
     /// Convert this object into `futures::Future`
+    #[inline(always)]
     fn into_future(self) -> FutureWrapper<Self> {
         FutureWrapper(Some(self))
     }
@@ -35,6 +37,7 @@ pub trait Future: Sized {
 impl<F: Future> futures::Future for FutureWrapper<F> {
     type Item = F::Item;
     type Error = F::Error;
+    #[inline(always)]
     fn poll(&mut self) -> Result<futures::Async<Self::Item>, Self::Error> {
         let val = self.0.take()
             .expect("finished future called again");

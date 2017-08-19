@@ -36,6 +36,7 @@ pub trait StateMachine: Sized {
 impl<S, M> Supply<S, M> {
     /// Create a `Future` for the `StateMachine` by providing a mutable
     /// state to it
+    #[inline(always)]
     pub fn new(supply: S, state: M) -> Supply<S, M> {
         Supply(supply, Some(state))
     }
@@ -45,6 +46,7 @@ impl<S, M> Supply<S, M> {
 impl<S, M: StateMachine<Supply=S>> futures::Future for Supply<S, M> {
     type Item = M::Item;
     type Error = M::Error;
+    #[inline(always)]
     fn poll(&mut self) -> Result<futures::Async<Self::Item>, Self::Error> {
         let val = self.1.take()
             .expect("finished future called again");
