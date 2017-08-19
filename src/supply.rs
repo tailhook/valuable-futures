@@ -3,17 +3,39 @@ use futures;
 use {Async};
 
 
+/// A wrapper that provides mutable state to future-like `StateMachine`
 pub struct Supply<S, M>(S, Option<M>);
 
+/// A type-safe future-like trait that has also borrowed mutable state
 pub trait StateMachine: Sized {
+    /// A data, mutable pointer of which is supplied as the second
+    /// argument of the `poll()` method.
     type Supply;
+
+    /// The type of value that this future will resolved with
+    /// if it is successful
     type Item;
+
+    /// The type of error that this future will resolve with
+    /// if it fails in a normal fashion.
     type Error;
+
+    /// Query this future to see if its value has become available,
+    /// registering interest if it is not.
+    ///
+    /// The difference of this method to the `futures::Future::poll`
+    /// is that `self` is passed by value and supply is passed by a
+    /// mutable reference.
+    ///
+    /// See [documentation of futures](https://docs.rs/futures/0.1.14/futures/future/trait.Future.html#tymethod.poll)
+    /// for more more information on how the method should be implemented.
     fn poll(self, &mut Self::Supply)
         -> Result<Async<Self::Item, Self>, Self::Error>;
 }
 
 impl<S, M> Supply<S, M> {
+    /// Create a `Future` for the `StateMachine` by providing a mutable
+    /// state to it
     pub fn new(supply: S, state: M) -> Supply<S, M> {
         Supply(supply, Some(state))
     }
