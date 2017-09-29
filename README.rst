@@ -3,7 +3,7 @@ Valuable-futures crate
 ======================
 
 :Status: Alpha
-:Documentation: http://docs.rs/valuable-futures/
+:Documentation: http://docs.rs/valuable_futures/
 
 A library that allows writing futures_ having a by-value state
 (or type-safe futures
